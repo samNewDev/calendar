@@ -18,8 +18,14 @@ include "includes/myautoload.inc.php";
       $month = new Calendar($_GET['month'] ?? null, $_GET['year'] ?? null);
       $firstDay = $month->firstDayOfTheWeek()->modify('last monday');
     ?>
-    <h1><?= $month->displayDate() ?></h1>
-
+    <div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
+      <h1><?= $month->displayDate() ?></h1>
+      <div>
+        <a href="index.php?month=<?= $month->nextMonth()->month; ?>&year=<?= $month->nextMonth()->year; ?>" class="btn btn-dark">&lt;</a>
+        <a href="index.php?month=<?= $month->previousMonth()->month; ?>&year=<?= $month->previousMonth()->year; ?>" class="btn btn-dark">&gt;</a>
+      </div>
+    </div>
+    
     <table class="table table-bordered table-success calendar_table">
         <?php for($i=0; $i<$month->weeksDefaultNum; $i++) : ?>
         <tr>

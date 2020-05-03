@@ -7,18 +7,15 @@ class Calendar
   public $weeksDefaultNum = 6;
   public $days = ['Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi', 'Dimanche'];
   private $months = ['Janvier', 'Fevrier', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Aout', 'Septembre', 'Octobre', 'Novembre', 'Decembre'];
-  private $month;
-  private $year;
+  public $month;
+  public $year;
 
   function __construct(?int $month = null, ?int $year = null) {
-    if ($month == null) {
+    if ($month == null || $month > 12 || $month < 1) {
       $month = intval(date('m'));
     }
     if ($year == null) {
       $year = intval(date('Y'));
-    }
-    if ($month > 12 || $month < 1) {
-      $month = $month % 12;
     }
     $this->month = $month;
     $this->year = $year;
@@ -40,5 +37,25 @@ class Calendar
 
   public function isCurrentMonth(DateTime $currentDay) : bool {
     return $this->firstDayOfTheWeek()->format('Y-m') === $currentDay->format('Y-m');
+  }
+
+  public function nextMonth() : Calendar {
+    $month = $this->month + 1;
+    $year = $this->year;
+    if ($month > 12) {
+      $month = 1;
+      $year += 1; 
+    }
+    return new Calendar($month, $year);
+  }
+
+  public function previousMonth() : Calendar {
+    $month = $this->month - 1;
+    $year = $this->year;
+    if ($month < 0) {
+      $month = 12;
+      $year -= 1; 
+    }
+    return new Calendar($month, $year);
   }
 }

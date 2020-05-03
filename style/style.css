@@ -1,0 +1,9 @@
+.calendar_table {
+  width: 100%;
+  height: calc(100vh - 112px);
+}
+.calendar_weeks {
+  height: 16.28%;
+  width: 14.28%;
+  vertical-align: top;
+}

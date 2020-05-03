@@ -19,19 +19,24 @@ include "includes/myautoload.inc.php";
       $firstDay = $month->firstDayOfTheWeek()->modify('last monday');
     ?>
     <h1><?= $month->displayDate() ?></h1>
+
     <table class="table table-bordered table-success calendar_table">
-      <?php for($i=0; $i<$month->weeksDefaultNum; $i++) : ?>
-      <tr>
-        <?php foreach ($month->days as $key => $day): ?>
-        <td class="calendar_weeks">
-          <?php if($i == 0) : ?>
-            <?= $day . '<br>'; ?>
-          <?php endif; ?>
-          <?php echo intval((clone $firstDay)->modify('+'.$key + 7*$i.' day')->format('d')); ?>
-        </td>
-        <?php endforeach; ?>
-      </tr>
-    <?php endfor; ?>
+        <?php for($i=0; $i<$month->weeksDefaultNum; $i++) : ?>
+        <tr>
+            <?php foreach ($month->days as $key => $day):
+              $currentDay = (clone $firstDay)->modify('+'.$key + 7*$i.' day');
+              ?>
+              <td id="<?= $month->isCurrentMonth($currentDay) ? '' : 'calendar_notCurrentMonth'; ?>" class="calendar_weeks">
+                <?php if($i == 0) : ?>
+                  <div class="calendar_weekdays"> <?= $day . '<br>'; ?> </div>
+                <?php endif; ?>
+                <div>
+                  <?php echo intval($currentDay->format('d')); ?>
+                </div>
+              </td>
+            <?php endforeach; ?>
+        </tr>
+      <?php endfor; ?>
     </table>
   </body>
 </html>

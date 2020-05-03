@@ -7,3 +7,12 @@
   width: 14.28%;
   vertical-align: top;
 }
+
+#calendar_notCurrentMonth {
+  opacity: 0.4;
+}
+
+.calendar_weekdays {
+    font-weight: bold;
+    color: #111;
+}

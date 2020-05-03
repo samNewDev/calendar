@@ -38,5 +38,7 @@ class Calendar
     return intval($end->format('W')) - intval($start->format('W')) + 1;
   }
 
-
+  public function isCurrentMonth(DateTime $currentDay) : bool {
+    return $this->firstDayOfTheWeek()->format('Y-m') === $currentDay->format('Y-m');
+  }
 }

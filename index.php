@@ -20,7 +20,7 @@ include "includes/myautoload.inc.php";
     ?>
     <h1><?= $month->displayDate() ?></h1>
     <table class="table table-bordered table-success calendar_table">
-      <?php for($i=0; $i<6; $i++) : ?>
+      <?php for($i=0; $i<$month->getWeeksNum(); $i++) : ?>
       <tr>
         <?php foreach ($month->days as $key => $day): ?>
         <td class="calendar_weeks calendar_<?=$month->getWeeksNum()?>weeks">

@@ -23,11 +23,11 @@ include "includes/myautoload.inc.php";
       <?php for($i=0; $i<$month->weeksDefaultNum; $i++) : ?>
       <tr>
         <?php foreach ($month->days as $key => $day): ?>
-        <td class="calendar_weeks calendar_<?=$month->getWeeksNum()?>weeks">
+        <td class="calendar_weeks">
           <?php if($i == 0) : ?>
             <?= $day . '<br>'; ?>
           <?php endif; ?>
-          <?php echo intval($firstDay->format('d')); ?>
+          <?php echo intval((clone $firstDay)->modify('+'.$key + 7*$i.' day')->format('d')); ?>
         </td>
         <?php endforeach; ?>
       </tr>

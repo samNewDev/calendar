@@ -21,8 +21,8 @@ include "includes/myautoload.inc.php";
     <div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
       <h1><?= $month->displayDate() ?></h1>
       <div>
-        <a href="index.php?month=<?= $month->nextMonth()->month; ?>&year=<?= $month->nextMonth()->year; ?>" class="btn btn-dark">&lt;</a>
-        <a href="index.php?month=<?= $month->previousMonth()->month; ?>&year=<?= $month->previousMonth()->year; ?>" class="btn btn-dark">&gt;</a>
+        <a href="index.php?month=<?= $month->previousMonth()->month; ?>&year=<?= $month->previousMonth()->year; ?>" class="btn btn-dark">&lt;</a>
+        <a href="index.php?month=<?= $month->nextMonth()->month; ?>&year=<?= $month->nextMonth()->year; ?>" class="btn btn-dark">&gt;</a>
       </div>
     </div>
     
@@ -32,12 +32,12 @@ include "includes/myautoload.inc.php";
             <?php foreach ($month->days as $key => $day):
               $currentDay = (clone $firstDay)->modify('+'.$key + 7*$i.' day');
               ?>
-              <td id="<?= $month->isCurrentMonth($currentDay) ? '' : 'calendar_notCurrentMonth'; ?>" class="calendar_weeks">
+              <td id="<?= $month->isCurrentMonth($currentDay) ? '' : 'calendar_notCurrentMonth'; ?>"class="calendar_weeks">
                 <?php if($i == 0) : ?>
                   <div class="calendar_weekdays"> <?= $day . '<br>'; ?> </div>
                 <?php endif; ?>
                 <div>
-                  <?php echo intval($currentDay->format('d')); ?>
+                  <?= intval($currentDay->format('d')); ?>
                 </div>
               </td>
             <?php endforeach; ?>

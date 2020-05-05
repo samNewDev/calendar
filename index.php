@@ -15,8 +15,12 @@ include "includes/myautoload.inc.php";
         <a class="navbar-brand" href="index.php">My Calendar</a>
     </nav>
     <?php
+      $events = new Events();
       $month = new Calendar($_GET['month'] ?? null, $_GET['year'] ?? null);
       $firstDay = $month->firstDayOfTheWeek()->modify('last monday');
+      $end = (clone $firstDay)->modify('+41 days');
+      $events = $events->getEventsBetweenByDay($firstDay, $end);
+      var_dump($events);
     ?>
     <div class="d-flex flex-row align-items-center justify-content-between mx-sm-3">
       <h1><?= $month->displayDate() ?></h1>
@@ -31,14 +35,18 @@ include "includes/myautoload.inc.php";
         <tr>
             <?php foreach ($month->days as $key => $day):
               $currentDay = (clone $firstDay)->modify('+'.$key + 7*$i.' day');
+              $eventOfDay = $events[$currentDay->format('Y-m-d')] ?? [];
               ?>
               <td id="<?= $month->isCurrentMonth($currentDay) ? '' : 'calendar_notCurrentMonth'; ?>"class="calendar_weeks">
                 <?php if($i == 0) : ?>
                   <div class="calendar_weekdays"> <?= $day . '<br>'; ?> </div>
                 <?php endif; ?>
-                <div>
-                  <?= intval($currentDay->format('d')); ?>
-                </div>
+                <div><?= intval($currentDay->format('d')); ?></div>
+                <?php foreach ($eventOfDay as $event) : ?>
+                  <div class="calendar_event">
+                    <?= (new DateTime($event['start']))->format('H:i') ?> - <a href=""><?= $event['name']; ?></a>
+                  </div>
+                <?php endforeach; ?>
               </td>
             <?php endforeach; ?>
         </tr>

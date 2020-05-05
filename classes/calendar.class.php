@@ -1,7 +1,5 @@
 <?php
-/**
- *
- */
+
 class Calendar
 {
   public $weeksDefaultNum = 6;

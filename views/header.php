@@ -11,6 +11,6 @@ include "includes/myautoload.inc.php";
     <link rel="stylesheet" href="style/style.css">
   </head>
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-success">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
         <a class="navbar-brand" href="index.php">My Calendar</a>
     </nav>

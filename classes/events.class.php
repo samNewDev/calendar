@@ -1,4 +1,6 @@
 <?php
+require 'classes/dbh.class.php';
+require 'event.class.php';
 
 class Events extends Dbh {
     /**
@@ -13,7 +15,13 @@ class Events extends Dbh {
         $results = $statement->fetchAll();
         return $results;
     }
-
+    
+    /**
+     * Retrive events between 2 dates by day
+     * @param DateTime $start
+     * @param DateTime $end
+     * @return array
+    */
     public function getEventsBetweenByDay (DateTime $start, DateTime $end) : array {
         $events = $this->getEventsBetween($start, $end);
         $days = [];
@@ -28,5 +36,20 @@ class Events extends Dbh {
         }
         return $days;
     }
-    
+    /**
+     * Retrieve an event by its id
+     * @param int $id
+     * @return array 
+     */
+    public function find(int $id) : Event {
+        $statement = $this->connect()->query("SELECT * FROM events WHERE id = $id");
+        $statement->setFetchMode(PDO::FETCH_CLASS, Event::class);
+        $result = $statement->fetch();
+        if ($result === false) {
+            throw new Exception('Aucun resultat n\'a été trouvé');
+        }
+        else {
+            return $result;
+        }
+    }
 }

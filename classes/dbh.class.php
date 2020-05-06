@@ -6,7 +6,7 @@ class Dbh {
   private $pwd = "";
   private $dbName = "events";
 
-  protected function connect() {
+  protected function connect() : PDO {
     $dsn = 'mysql:host='. $this->host . ';dbname='. $this->dbName;
     $pdo = new PDO($dsn, $this->user, $this->pwd);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);

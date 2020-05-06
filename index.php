@@ -1,19 +1,7 @@
 <?php
-include "includes/myautoload.inc.php";
+  require 'views/header.php';
 ?>
 
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>My Calendar</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="style/style.css">
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-md navbar-dark bg-success">
-        <a class="navbar-brand" href="index.php">My Calendar</a>
-    </nav>
     <?php
       $events = new Events();
       $month = new Calendar($_GET['month'] ?? null, $_GET['year'] ?? null);
@@ -44,7 +32,7 @@ include "includes/myautoload.inc.php";
                 <div><?= intval($currentDay->format('d')); ?></div>
                 <?php foreach ($eventOfDay as $event) : ?>
                   <div class="calendar_event">
-                    <?= (new DateTime($event['start']))->format('H:i') ?> - <a href=""><?= $event['name']; ?></a>
+                    <?= (new DateTime($event['start']))->format('H:i') ?> - <a href="event.php/?id=<?= $event['id'] ?>"><?= $event['name']; ?></a>
                   </div>
                 <?php endforeach; ?>
               </td>
@@ -52,5 +40,7 @@ include "includes/myautoload.inc.php";
         </tr>
       <?php endfor; ?>
     </table>
-  </body>
-</html>
+
+<?php
+  require 'views/footer.php';
+?>

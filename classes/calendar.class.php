@@ -9,10 +9,10 @@ class Calendar
   public $year;
 
   function __construct(?int $month = null, ?int $year = null) {
-    if ($month == null || $month > 12 || $month < 1) {
+    if ($month === null || $month > 12 || $month < 1) {
       $month = intval(date('m'));
     }
-    if ($year == null) {
+    if ($year === null) {
       $year = intval(date('Y'));
     }
     $this->month = $month;
@@ -23,18 +23,18 @@ class Calendar
     return $this->months[$this->month - 1] . " " . $this->year;
   }
 
-  public function firstDayOfTheWeek() : DateTime {
+  public function firstDayOfTheMonth() : DateTime {
     return new DateTime("$this->year-$this->month-01");
   }
 
   public function getWeeksNum() : int {
-    $start = $this->firstDayOfTheWeek();
+    $start = $this->firstDayOfTheMonth();
     $end = (clone $start)->modify("+1 month -1 day");
     return intval($end->format('W')) - intval($start->format('W')) + 1;
   }
 
   public function isCurrentMonth(DateTime $currentDay) : bool {
-    return $this->firstDayOfTheWeek()->format('Y-m') === $currentDay->format('Y-m');
+    return $this->firstDayOfTheMonth()->format('Y-m') === $currentDay->format('Y-m');
   }
 
   public function nextMonth() : Calendar {

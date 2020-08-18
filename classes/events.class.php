@@ -4,7 +4,7 @@ require 'event.class.php';
 
 class Events extends Dbh {
     /**
-     * Retrive events between 2 dates
+     * Retrieve events between 2 dates
      * @param DateTime $start
      * @param DateTime $end
      * @return array
@@ -17,7 +17,7 @@ class Events extends Dbh {
     }
     
     /**
-     * Retrive events between 2 dates by day
+     * Retrieve events between 2 dates by day
      * @param DateTime $start
      * @param DateTime $end
      * @return array

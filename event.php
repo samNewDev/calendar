@@ -11,8 +11,9 @@ if (!isset($_GET['id'])) {
 
 try {
     $event = $events->find($_GET['id']);
-} catch (\Exception $e) {
+} catch (Exception $e) {
     header('location: 404.php');
+    exit();
 }
 
 ?>

@@ -1,5 +1,6 @@
 <?php
 include "includes/myautoload.inc.php";
+$root = dirname($_SERVER['SCRIPT_NAME']).'/';
 ?>
 
 <!DOCTYPE html>
@@ -12,5 +13,5 @@ include "includes/myautoload.inc.php";
   </head>
   <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.php">My Calendar</a>
+        <a class="navbar-brand" href="<?= $root ?>index.php">My Calendar</a>
     </nav>

@@ -1,6 +1,6 @@
 <?php
 
-class Event {
+class TheEvent {
     private $id;
     private $name;
     private $description;

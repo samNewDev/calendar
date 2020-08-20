@@ -1,6 +1,5 @@
 <?php
-require 'classes/dbh.class.php';
-require 'event.class.php';
+require 'debugging.php';
 
 class Events extends Dbh {
     /**
@@ -15,7 +14,6 @@ class Events extends Dbh {
         $results = $statement->fetchAll();
         return $results;
     }
-    
     /**
      * Retrieve events between 2 dates by day
      * @param DateTime $start
@@ -41,10 +39,11 @@ class Events extends Dbh {
      * @param int $id
      * @return array 
      */
-    public function find(int $id) : Event {
+    public function find(int $id) : theEvent {
         $statement = $this->connect()->query("SELECT * FROM events WHERE id = $id");
-        $statement->setFetchMode(PDO::FETCH_CLASS, Event::class);
+        $statement->setFetchMode(PDO::FETCH_CLASS, theEvent::class);
         $result = $statement->fetch();
+        //fetch() can return false in case of errors, so we need to handle this problem
         if ($result === false) {
             throw new Exception('Aucun resultat n\'a été trouvé');
         }

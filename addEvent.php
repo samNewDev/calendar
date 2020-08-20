@@ -1,7 +1,7 @@
 <?php
-require 'classes/events.class.php';
+//require 'classes/events.class.php';
 require 'views/header.php';
-require 'debugging.php';
+//require 'debugging.php';
 ?>
 <div class="container">
     <h1>Ajouter un évènement</h1>    

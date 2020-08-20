@@ -25,41 +25,27 @@
               $eventOfDay = $events[$currentDay->format('Y-m-d')] ?? [];
             ?>
             <td id="<?= $month->isCurrentMonth($currentDay) ? '' : 'calendar_notCurrentMonth'; ?>"class="calendar_weeks">
-              <?php if($i == 0) : ?>
-                <div class="calendar_weekdays"> <?= $day . '<br>'; ?> </div>
-              <?php endif; ?>
-              <div><?= intval($currentDay->format('d')); ?></div>
-              <?php foreach ($eventOfDay as $event) : ?>
-                <div class="calendar_event">
-                  <?= (new DateTime($event['start']))->format('H:i') ?> - <a href="event.php/?id=<?= $event['id'] ?>"><?= $event['name']; ?></a>
-                </div>
-              <?php endforeach; ?>
+                <?php if($i == 0) : ?>
+                  <div class="calendar_weekdays"> <?= $day . '<br>'; ?> </div>
+                <?php endif; ?>
+                <div><?= intval($currentDay->format('d')); ?></div>
+
+
+                
+                <?php foreach ($eventOfDay as $event) : ?>
+                  <div class="calendar_event">
+                    <?= (new DateTime($event['start']))->format('H:i') ?> - <a href="event.php/?id=<?= $event['id'] ?>"><?= $event['name']; ?></a>
+                  </div>
+                <?php endforeach; ?>
             </td>
             <?php endforeach; ?>
         </tr>
       <?php endfor; ?>
     </table>
+<!--
     <a href="addEvent.php" class="calendar_buttonAddEvents">+</a>
+-->
     </div>
-
-    <table>
-    <?php for ($i=0; $i < 3; $i++) : ?>
-      <?php if ($i == 0) : ?>
-      <tr>
-        <td>hours</td>
-        <?php foreach ($weekDays as $key => $day) : ?>
-          <td><?= $day ?></td>
-        <?php endforeach; ?>
-      </tr>
-      <?php endif; ?>
-      <tr>
-        <td><?= $startHour->add(new DateInterval("PT1H"))->format('H:i') ?></td>
-      </tr>
-    <?php endfor; ?>
-    </table>
-
-
-
 
 <?php
   require 'views/footer.php';

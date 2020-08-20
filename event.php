@@ -1,16 +1,15 @@
 <?php
-require 'classes/events.class.php';
-require 'views/header.php';
-require 'debugging.php';
 
-$event = new Event();
+require 'views/header.php';
+
+$oneEvent = new TheEvent();
 $events = new Events();
 if (!isset($_GET['id'])) {
     header('location: 404.php');
 }
-
+//Handeling errors using try/catch in case we get an exception from find()
 try {
-    $event = $events->find($_GET['id']);
+    $oneEvent = $events->find($_GET['id']);
 } catch (Exception $e) {
     header('location: 404.php');
     exit();
@@ -18,15 +17,14 @@ try {
 
 ?>
 
-<h1><?= h($event->getName()); ?></h1>
+<h1><?= h($oneEvent->getName()); ?></h1>
 <ul>
-    <li>Date: <?= $event->getStart()->format('d/m/Y'); ?></li>
-    <li>Heure de Démarrage: <?= $event->getStart()->format('H:i'); ?></li>
+    <li>Date: <?= $oneEvent->getStart()->format('d/m/Y'); ?></li>
+    <li>Heure de Démarrage: <?= $oneEvent->getStart()->format('H:i'); ?></li>
     <li>Description:<br>
-        <?= h($event->getDescription()); ?>
+        <?= h($oneEvent->getDescription()); ?>
     </li>
-    <li>Heure de fin: <?= $event->getEnd()->format('H:i'); ?></li>
+    <li>Heure de fin: <?= $oneEvent->getEnd()->format('H:i'); ?></li>
 </ul>
-
 
 <?php require 'views/footer.php';

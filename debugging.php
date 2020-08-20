@@ -4,7 +4,7 @@ function debugging(...$vars){
     foreach ($vars as $var) {
         echo '<pre>';
         print_r($var);
-        echo '</pre>';
+        echo '</pre>';die();
     }
 }
 

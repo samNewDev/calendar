@@ -12,8 +12,8 @@ class EventValidator {
     */
     public function validates(array $data) {
         $this->errors = [];
-        $this->$data = $data;
-        return $errors;
+        $this->data = $data;
+        return $this->errors;
     }
 
     public function validate(string $field, string $method, int $length) {

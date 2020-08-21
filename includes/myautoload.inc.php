@@ -10,6 +10,6 @@ function myAutoLoad($className){
   if (!file_exists($fullPath)) {
     return false;
   }
-  require $fullPath;
-  //include_once $fullPath;
+  //require $fullPath;
+  include_once $fullPath;
 }

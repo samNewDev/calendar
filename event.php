@@ -5,16 +5,19 @@ require 'views/header.php';
 $oneEvent = new TheEvent();
 $events = new Events();
 if (!isset($_GET['id'])) {
-    header('location: 404.php');
+    header('location: '.$root.'404.php');
+}
+if(!is_numeric($_GET['id'])){
+    header('location: '.$root.'404.php');
 }
 //Handeling errors using try/catch in case we get an exception from find()
 try {
     $oneEvent = $events->find($_GET['id']);
 } catch (Exception $e) {
-    header('location: 404.php');
+    header('location: '.$root.'404.php');
     exit();
 }
-
+//render(['title' => $oneEvent->getName()]);
 ?>
 
 <h1><?= h($oneEvent->getName()); ?></h1>

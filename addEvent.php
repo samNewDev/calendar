@@ -1,8 +1,7 @@
 <?php
-//require 'classes/events.class.php';
 require 'views/header.php';
-//require 'debugging.php';
 ?>
+
 <div class="container">
     <h1>Ajouter un évènement</h1>    
     <form action="" method="POST" class="form-group">
@@ -16,7 +15,7 @@ require 'views/header.php';
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="date">Date</label>
-                    <input id="date" type="date" required class="form-control" name="date" value="05/07/2020">
+                    <input id="date" type="date" required class="form-control" name="date" value="2020-07-05">
                 </div>
             </div>
         </div>
@@ -39,17 +38,18 @@ require 'views/header.php';
             <textarea id="description" class="form-control" name="description"></textarea>
         </div>
         <div class="form-group">
-            <button class="btn btn-dark">Ajouter l'évenement</button>
+            <button class="btn btn-primary">Ajouter l'évenement</button>
         </div>
     </form>
 </div>
 
 <?php
+debugging($_POST);
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = [];
     $validator = new EventValidator();
     $errors = $validator->validates($_POST);
-    if (empty($errors)) {
+    if (!empty($errors)) {
         debugging($errors); 
     }
 }

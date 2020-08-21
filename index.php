@@ -29,8 +29,6 @@
                   <div class="calendar_weekdays"> <?= $day . '<br>'; ?> </div>
                 <?php endif; ?>
                 <div><?= intval($currentDay->format('d')); ?></div>
-
-
                 
                 <?php foreach ($eventOfDay as $event) : ?>
                   <div class="calendar_event">
@@ -42,9 +40,9 @@
         </tr>
       <?php endfor; ?>
     </table>
-<!--
+
     <a href="addEvent.php" class="calendar_buttonAddEvents">+</a>
--->
+
     </div>
 
 <?php

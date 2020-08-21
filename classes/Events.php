@@ -1,5 +1,4 @@
 <?php
-require 'debugging.php';
 
 class Events extends Dbh {
     /**
@@ -39,7 +38,7 @@ class Events extends Dbh {
      * @param int $id
      * @return array 
      */
-    public function find(int $id) : theEvent {
+    public function find(?int $id) : theEvent {
         $statement = $this->connect()->query("SELECT * FROM events WHERE id = $id");
         $statement->setFetchMode(PDO::FETCH_CLASS, theEvent::class);
         $result = $statement->fetch();

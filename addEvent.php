@@ -1,5 +1,15 @@
 <?php
 require 'views/header.php';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $errors = [];
+    $validator = new EventValidator();
+    $errors = $validator->validates($_POST);
+    if (!empty($errors)) {
+        debugging($errors); 
+    
+        echo "<div class='container alert alert-danger'>Please correct the required fields</div>";
+    }
+}   
 ?>
 
 <div class="container">
@@ -10,12 +20,22 @@ require 'views/header.php';
                 <div class="form-group">
                     <label for="name">Titre</label>
                     <input id="name" type="text" required class="form-control" name="name" value="Demo">
+                    <div style='color:red'>
+                    <?php if(isset($errors['name'])): ?>
+                        <?php echo $errors['name']; ?>
+                    <?php endif; ?>
+                    </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="date">Date</label>
                     <input id="date" type="date" required class="form-control" name="date" value="2020-07-05">
+                    <div style='color:red'>
+                    <?php if(isset($errors['date'])): ?>
+                        <?php echo $errors['date']; ?>
+                    <?php endif; ?>
+                    </div>
                 </div>
             </div>
         </div>
@@ -24,12 +44,22 @@ require 'views/header.php';
                 <div class="form-group">
                     <label for="start">Début</label>
                     <input id="start" type="time" required class="form-control" name="start" placeholder="HH:MM" value="14:40">
+                    <div style='color:red'>
+                    <?php if(isset($errors['start'])): ?>
+                        <?php echo $errors['start']; ?>
+                    <?php endif; ?>
+            </div>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="end">Fin</label>
                     <input id="end" type="time" required class="form-control" name="end" placeholder="HH:MM" value="15:40">
+                    <div style='color:red'>
+                    <?php if(isset($errors['end'])): ?>
+                        <?php echo $errors['end']; ?>
+                    <?php endif; ?>
+            </div>
                 </div>
             </div>
         </div>
@@ -45,14 +75,7 @@ require 'views/header.php';
 
 <?php
 debugging($_POST);
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $errors = [];
-    $validator = new EventValidator();
-    $errors = $validator->validates($_POST);
-    if (!empty($errors)) {
-        debugging($errors); 
-    }
-}
+
 ?>
 
 <?php require 'views/footer.php';

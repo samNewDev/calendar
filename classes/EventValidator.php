@@ -16,8 +16,7 @@ class EventValidator {
         $this->data = $post;
         $this->validate('name', 'minLength', 5);
         $this->validate('date', 'date');
-        $this->validate('start', 'time', 5);
-        $this->validate('end', 'time', 5);
+        $this->validate('start', 'checkStartEndTime', 'end');
         return $this->errors;
     }
 
@@ -50,6 +49,22 @@ class EventValidator {
     public function time(string $field){
         if(DateTime::createFromFormat('H:i', $this->data[$field]) === false){
             $this->errors[$field] = "Time is not valid";
+            return false;
+        }else {
+            return true;
+        }
+    }
+
+    public function checkStartEndTime(string $startTime, string $endTime){
+        if(($this->time($startTime) && $this->time($endTime)) !== true){
+            return false;
+        }else {
+            $start = DateTime::createFromFormat('H:i', $this->data[$startTime]);
+            $end = DateTime::createFromFormat('H:i', $this->data[$endTime]);
+            if ($start->getTimestamp() > $end->getTimestamp()) {
+                $this->errors['start'] = "Time is not valid";
+                return false;
+            }
         }
     }
 }

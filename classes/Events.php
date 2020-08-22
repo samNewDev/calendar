@@ -50,4 +50,14 @@ class Events extends Dbh {
             return $result;
         }
     }
+
+    public function create(TheEvent $event){
+        $statement = $this->connect()->prepare("INSERT INTO events (name, description, start, end) VALUES (?, ?, ?, ?)");
+        return $statement->execute([
+            $event->getName(),
+            $event->getDescription(),
+            $event->getStart()->format('Y-m-d H:i:s'),
+            $event->getEnd()->format('Y-m-d H:i:s')
+        ]);
+    }
 }

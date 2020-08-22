@@ -1,6 +1,8 @@
 <?php
 require 'views/header.php';
+$data = [];
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $data = $_POST;
     $errors = [];
     $validator = new EventValidator();
     $errors = $validator->validates($_POST);
@@ -8,6 +10,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         debugging($errors); 
     
         echo "<div class='container alert alert-danger'>Please correct the required fields</div>";
+    }else {
+        $event = new TheEvent;
+        $event->setName($data['name']);
+        $event->setDescription($data['description']);
+        $event->setStart(DateTime::createFromFormat('Y-m-d H:i', $data['date'].' '.$data['start'])->format('Y-m-d H:i:s'));
+        $event->setEnd(DateTime::createFromFormat('Y-m-d H:i', $data['date'].' '.$data['end'])->format('Y-m-d H:i:s'));
+
+        debugging($event);
+        $events = new Events;
+        $events->create($event);
+        header('Location: /index?sucess');
+        exit();
     }
 }   
 ?>
@@ -19,8 +33,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="name">Titre</label>
-                    <input id="name" type="text" required class="form-control" name="name" value="Demo">
-                    <div style='color:red'>
+                    <input id="name" type="text" required class="form-control" name="name" value="<?= isset($data['name'])?h($data['name']):'' ?>">
+                    <div class='text-muted'>
                     <?php if(isset($errors['name'])): ?>
                         <?php echo $errors['name']; ?>
                     <?php endif; ?>
@@ -30,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="date">Date</label>
-                    <input id="date" type="date" required class="form-control" name="date" value="2020-07-05">
-                    <div style='color:red'>
+                    <input id="date" type="date" required class="form-control" name="date" value="<?= isset($data['date'])?h($data['date']):'' ?>">
+                    <div class='text-muted'>
                     <?php if(isset($errors['date'])): ?>
                         <?php echo $errors['date']; ?>
                     <?php endif; ?>
@@ -43,8 +57,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="start">Début</label>
-                    <input id="start" type="time" required class="form-control" name="start" placeholder="HH:MM" value="14:40">
-                    <div style='color:red'>
+                    <input id="start" type="time" required class="form-control" name="start" placeholder="HH:MM" value="<?= isset($data['start'])?h($data['start']):'' ?>">
+                    <div class='text-muted'>
                     <?php if(isset($errors['start'])): ?>
                         <?php echo $errors['start']; ?>
                     <?php endif; ?>
@@ -54,12 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-sm-6">
                 <div class="form-group">
                     <label for="end">Fin</label>
-                    <input id="end" type="time" required class="form-control" name="end" placeholder="HH:MM" value="15:40">
-                    <div style='color:red'>
-                    <?php if(isset($errors['end'])): ?>
-                        <?php echo $errors['end']; ?>
-                    <?php endif; ?>
-            </div>
+                    <input id="end" type="time" required class="form-control" name="end" placeholder="HH:MM" value="<?= isset($data['end'])?h($data['end']):'' ?>">
                 </div>
             </div>
         </div>
